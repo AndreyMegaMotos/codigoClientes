@@ -1,0 +1,28 @@
+const express = require("express");
+const app = express();
+
+// Lista de links dos vendedores
+const vendedores = [
+    "https://wa.me/5547999991111", // Vendedor 1
+    "https://wa.me/5547999992222", // Vendedor 2
+    "https://wa.me/5547999993333", // Vendedor 3
+    "https://wa.me/5547999994444", // Vendedor 4
+    "https://wa.me/5547999995555", // Vendedor 5
+    "https://wa.me/5547999996666"  // Vendedor 6
+];
+
+// Índice atual
+let currentIndex = 0;
+
+// Rota para redirecionamento
+app.get("/", (req, res) => {
+    const nextLink = vendedores[currentIndex];
+    currentIndex = (currentIndex + 1) % vendedores.length; // Atualiza para o próximo vendedor
+    res.redirect(nextLink); // Redireciona o cliente para o vendedor atual
+});
+
+// Inicia o servidor
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Servidor rodando na porta ${PORT}`);
+});
